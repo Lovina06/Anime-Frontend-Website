@@ -12,6 +12,7 @@ const Hero = () => {
   const [hasClicked, setHasClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
+  const [showTrailer, setShowTrailer] = useState(false);
 
   const totalVideos = 4;
   const nextVideoRef = useRef(null);
@@ -86,6 +87,35 @@ const Hero = () => {
         </div>
       )}
 
+      {/* Trailer Modal */}
+      {showTrailer && (
+        <div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/90"
+          onClick={() => setShowTrailer(false)}
+        >
+          <div
+            className="relative w-full max-w-4xl aspect-video px-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute -top-10 right-4 text-white text-2xl font-bold"
+              onClick={() => setShowTrailer(false)}
+            >
+              ✕
+            </button>
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/x1_-btXPWpc?autoplay=1"
+              title="Zentry Trailer"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="rounded-lg"
+            />
+          </div>
+        </div>
+      )}
+
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
@@ -145,6 +175,7 @@ const Hero = () => {
               title="Watch Trailer"
               leftIcon={<TiLocationArrow />}
               containerClass="bg-yellow-300 flex-center gap-1"
+              onClick={() => setShowTrailer(true)}
             />
           </div>
         </div>
